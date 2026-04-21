@@ -24,4 +24,12 @@ final class ResultatCommandeTest extends TestCase
         $this->assertFalse($result->succesExecution());
         $this->assertEquals('Order refused', $result->message());
     }
+
+    public function testSuccessMessageCanBeEmpty(): void
+    {
+        $result = ResultatCommande::succes('');
+        
+        $this->assertTrue($result->succesExecution());
+        $this->assertEquals('', $result->message());
+    }
 }
