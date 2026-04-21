@@ -119,4 +119,17 @@ final class StockTest extends TestCase
         
         $this->assertFalse($stock->peutServir($commande));
     }
+
+    public function testRetirerPourRemovesCorrectQuantity(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 5);
+        
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        
+        $stock->retirerPour($commande);
+        
+        $this->assertEquals(4, $stock->quantiteDe('vanille'));
+    }
 }
