@@ -51,4 +51,13 @@ final class StockTest extends TestCase
         $stock->ajouter('vanille', 3);
         $this->assertEquals(8, $stock->quantiteDe('vanille'));
     }
+
+    public function testMultipleFlavorsAreIndependent(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 5);
+        $stock->ajouter('chocolat', 3);
+        $this->assertEquals(5, $stock->quantiteDe('vanille'));
+        $this->assertEquals(3, $stock->quantiteDe('chocolat'));
+    }
 }
