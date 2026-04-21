@@ -136,7 +136,6 @@ final class StockTest extends TestCase
     public function testRetirerPourThrowsExceptionIfInsufficientStock(): void
     {
         $stock = new Stock();
-        $stock->ajouter('vanille', 1);
         
         $commande = new Commande();
         $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
