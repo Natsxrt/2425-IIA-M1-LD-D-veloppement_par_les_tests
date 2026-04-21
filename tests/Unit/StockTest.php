@@ -22,4 +22,11 @@ final class StockTest extends TestCase
         $stock->ajouter('vanille', 5);
         $this->assertEquals(5, $stock->quantiteDe('vanille'));
     }
+
+    public function testRejectsEmptyIdentifier(): void
+    {
+        $stock = new Stock();
+        $this->expectException(InvalidArgumentException::class);
+        $stock->ajouter('', 5);
+    }
 }
