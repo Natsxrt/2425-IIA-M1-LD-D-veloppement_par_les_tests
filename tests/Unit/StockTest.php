@@ -60,4 +60,16 @@ final class StockTest extends TestCase
         $this->assertEquals(5, $stock->quantiteDe('vanille'));
         $this->assertEquals(3, $stock->quantiteDe('chocolat'));
     }
+
+    public function testToutesLesQuantitesReturnsAllFlavors(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 5);
+        $stock->ajouter('chocolat', 3);
+        
+        $quantites = $stock->toutesLesQuantites();
+        $this->assertCount(2, $quantites);
+        $this->assertEquals(5, $quantites['vanille']);
+        $this->assertEquals(3, $quantites['chocolat']);
+    }
 }
