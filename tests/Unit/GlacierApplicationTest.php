@@ -25,4 +25,13 @@ final class GlacierApplicationTest extends TestCase
         $this->assertArrayHasKey('caisse', $result);
         $this->assertArrayHasKey('stock', $result);
     }
+
+    public function testScenarioWithUnknownFlavour(): void
+    {
+        $app = GlacierApplication::demo();
+        $result = $app->traiterScenario([['unknown']]);
+        
+        $this->assertFalse($result['commandes'][0]['succes']);
+        $this->assertStringContainsString('inconnue', $result['commandes'][0]['message']);
+    }
 }
