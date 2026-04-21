@@ -72,4 +72,10 @@ final class GlaceTest extends TestCase
         $glace = new Glace('luxe', 'luxe', 'pot', 1000);
         $this->assertEquals(1000, $glace->prixVente());
     }
+
+    public function testSmallestPositivePriceIsValid(): void
+    {
+        $glace = new Glace('cheap', 'cheap', 'cornet', 1);
+        $this->assertEquals(1, $glace->prixVente());
+    }
 }
