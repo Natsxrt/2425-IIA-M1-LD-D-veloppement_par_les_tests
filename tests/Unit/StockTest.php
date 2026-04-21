@@ -15,4 +15,11 @@ final class StockTest extends TestCase
         $stock = new Stock();
         $this->assertEquals(0, $stock->quantiteDe('vanille'));
     }
+
+    public function testAddsQuantity(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 5);
+        $this->assertEquals(5, $stock->quantiteDe('vanille'));
+    }
 }
