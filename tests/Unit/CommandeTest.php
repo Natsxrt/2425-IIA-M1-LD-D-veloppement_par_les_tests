@@ -107,4 +107,14 @@ final class CommandeTest extends TestCase
         $this->assertCount(2, $commande->glaces());
         $this->assertEquals(8, $commande->prixTotal());
     }
+
+    public function testCanAddManyGlaces(): void
+    {
+        $commande = new Commande();
+        for ($i = 0; $i < 50; $i++) {
+            $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 1));
+        }
+        $this->assertCount(50, $commande->glaces());
+        $this->assertEquals(50, $commande->prixTotal());
+    }
 }
