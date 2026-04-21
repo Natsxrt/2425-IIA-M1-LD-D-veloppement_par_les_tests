@@ -54,4 +54,10 @@ final class GlaceTest extends TestCase
 
         new Glace('vanille', 'vanille', 'pot', -10);
     }
+
+    public function testCornetContainerIsValid(): void
+    {
+        $glace = new Glace('fraise', 'fraise', 'cornet', 5);
+        $this->assertSame('cornet', $glace->contenant());
+    }
 }
