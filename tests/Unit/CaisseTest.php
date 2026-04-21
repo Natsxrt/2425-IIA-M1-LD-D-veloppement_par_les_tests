@@ -96,4 +96,11 @@ final class CaisseTest extends TestCase
         $caisse->encaisser(1);
         $this->assertEquals(101, $caisse->montant());
     }
+
+    public function testLargeAmountsAreHandledCorrectly(): void
+    {
+        $caisse = new Caisse(1000000);
+        $caisse->encaisser(999999);
+        $this->assertEquals(1999999, $caisse->montant());
+    }
 }
