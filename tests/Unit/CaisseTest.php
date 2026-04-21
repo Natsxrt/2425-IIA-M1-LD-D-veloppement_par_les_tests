@@ -40,4 +40,12 @@ final class CaisseTest extends TestCase
 
         self::assertSame(60, $caisse->montant());
     }
+
+    public function testItAddsToInitialAmount(): void
+    {
+        $caisse = new Caisse(100);
+        $caisse->encaisser(50);
+
+        self::assertSame(150, $caisse->montant());
+    }
 }
