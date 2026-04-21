@@ -89,4 +89,11 @@ final class CaisseTest extends TestCase
         $caisse->encaisser(25);
         $this->assertEquals(175, $caisse->montant());
     }
+
+    public function testEncashesWithDecimalAmount(): void
+    {
+        $caisse = new Caisse(100);
+        $caisse->encaisser(1);
+        $this->assertEquals(101, $caisse->montant());
+    }
 }
