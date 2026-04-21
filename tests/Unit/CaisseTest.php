@@ -81,4 +81,12 @@ final class CaisseTest extends TestCase
         $caisse = new Caisse(50);
         $this->assertEquals(50, $caisse->montant());
     }
+
+    public function testMultipleEncashementsAreCorrect(): void
+    {
+        $caisse = new Caisse(100);
+        $caisse->encaisser(50);
+        $caisse->encaisser(25);
+        $this->assertEquals(175, $caisse->montant());
+    }
 }
