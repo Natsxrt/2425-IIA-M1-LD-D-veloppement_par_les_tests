@@ -168,4 +168,20 @@ final class ServiceCommandeTest extends TestCase
         $this->assertEquals(0, $stock->quantiteDe('vanille'));
         $this->assertEquals(8, $caisse->montant());
     }
+
+    public function testWithInitialCaisseAmount(): void
+    {
+        $service = new ServiceCommande();
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        
+        $stock = new Stock();
+        $stock->ajouter('vanille', 1);
+        $caisse = new Caisse(100);
+        
+        $result = $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertTrue($result->succesExecution());
+        $this->assertEquals(104, $caisse->montant());
+    }
 }
