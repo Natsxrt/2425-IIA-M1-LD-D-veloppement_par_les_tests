@@ -43,4 +43,12 @@ final class StockTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $stock->ajouter('vanille', -10);
     }
+
+    public function testAccumulatesQuantity(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 5);
+        $stock->ajouter('vanille', 3);
+        $this->assertEquals(8, $stock->quantiteDe('vanille'));
+    }
 }
