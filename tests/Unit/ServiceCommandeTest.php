@@ -100,4 +100,22 @@ final class ServiceCommandeTest extends TestCase
         
         $this->assertTrue($commande->estLivree());
     }
+
+    public function testHandlesMultipleItemOrder(): void
+    {
+        $service = new ServiceCommande();
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $commande->ajouterGlace(new Glace('chocolat', 'chocolat', 'cornet', 5));
+        
+        $stock = new Stock();
+        $stock->ajouter('vanille', 10);
+        $stock->ajouter('chocolat', 10);
+        $caisse = new Caisse();
+        
+        $result = $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertTrue($result->succesExecution());
+        $this->assertEquals(9, $caisse->montant());
+    }
 }
