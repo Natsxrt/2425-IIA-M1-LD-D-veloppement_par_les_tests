@@ -85,4 +85,19 @@ final class ServiceCommandeTest extends TestCase
         
         $this->assertEquals(4, $caisse->montant());
     }
+
+    public function testDeliversOrderAfterValidOrder(): void
+    {
+        $service = new ServiceCommande();
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        
+        $stock = new Stock();
+        $stock->ajouter('vanille', 10);
+        $caisse = new Caisse();
+        
+        $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertTrue($commande->estLivree());
+    }
 }
