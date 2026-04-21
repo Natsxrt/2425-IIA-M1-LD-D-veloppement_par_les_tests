@@ -22,4 +22,12 @@ final class CaisseTest extends TestCase
 
         self::assertSame(100, $caisse->montant());
     }
+
+    public function testItEncashesPositiveAmount(): void
+    {
+        $caisse = new Caisse();
+        $caisse->encaisser(50);
+
+        self::assertSame(50, $caisse->montant());
+    }
 }
