@@ -98,4 +98,13 @@ final class CommandeTest extends TestCase
         $commande = new Commande();
         $this->assertEquals(0, $commande->prixTotal());
     }
+
+    public function testCanAddSameFlavourMultipleTimes(): void
+    {
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'cornet', 4));
+        $this->assertCount(2, $commande->glaces());
+        $this->assertEquals(8, $commande->prixTotal());
+    }
 }
