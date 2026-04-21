@@ -36,4 +36,11 @@ final class CommandeTest extends TestCase
         $commande = new Commande();
         $this->assertTrue($commande->estVide());
     }
+
+    public function testItIsNotEmptyAfterAddingGlace(): void
+    {
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $this->assertFalse($commande->estVide());
+    }
 }
