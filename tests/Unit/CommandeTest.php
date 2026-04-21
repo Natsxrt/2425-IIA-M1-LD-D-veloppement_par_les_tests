@@ -92,4 +92,10 @@ final class CommandeTest extends TestCase
         $this->assertSame($glace1, $glaces[0]);
         $this->assertSame($glace2, $glaces[1]);
     }
+
+    public function testEmptyCommandeHasTotalPriceZero(): void
+    {
+        $commande = new Commande();
+        $this->assertEquals(0, $commande->prixTotal());
+    }
 }
