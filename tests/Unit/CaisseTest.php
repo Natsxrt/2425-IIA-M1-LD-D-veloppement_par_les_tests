@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\Caisse;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class CaisseTest extends TestCase
@@ -47,5 +48,13 @@ final class CaisseTest extends TestCase
         $caisse->encaisser(50);
 
         self::assertSame(150, $caisse->montant());
+    }
+
+    public function testItRejectsNegativeInitialAmount(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Le montant initial ne peut pas etre negatif.');
+
+        new Caisse(-10);
     }
 }
