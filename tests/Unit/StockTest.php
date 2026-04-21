@@ -36,4 +36,11 @@ final class StockTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $stock->ajouter('vanille', 0);
     }
+
+    public function testRejectsNegativeQuantity(): void
+    {
+        $stock = new Stock();
+        $this->expectException(InvalidArgumentException::class);
+        $stock->ajouter('vanille', -10);
+    }
 }
