@@ -78,4 +78,18 @@ final class CommandeTest extends TestCase
         $commande->ajouterGlace(new Glace('pistache', 'pistache', 'pot', 8));
         $this->assertEquals(25, $commande->prixTotal());
     }
+
+    public function testReturnsGlacesInCorrectOrder(): void
+    {
+        $commande = new Commande();
+        $glace1 = new Glace('vanille', 'vanille', 'pot', 4);
+        $glace2 = new Glace('chocolat', 'chocolat', 'cornet', 5);
+        $commande->ajouterGlace($glace1);
+        $commande->ajouterGlace($glace2);
+        
+        $glaces = $commande->glaces();
+        $this->assertCount(2, $glaces);
+        $this->assertSame($glace1, $glaces[0]);
+        $this->assertSame($glace2, $glaces[1]);
+    }
 }
