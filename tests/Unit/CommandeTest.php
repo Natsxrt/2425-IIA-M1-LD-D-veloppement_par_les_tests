@@ -59,4 +59,14 @@ final class CommandeTest extends TestCase
         $commande->livrer();
         $this->assertTrue($commande->estLivree());
     }
+
+    public function testCannotAddGlaceAfterDelivery(): void
+    {
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $commande->livrer();
+        
+        $this->expectException(LogicException::class);
+        $commande->ajouterGlace(new Glace('chocolat', 'chocolat', 'pot', 5));
+    }
 }
