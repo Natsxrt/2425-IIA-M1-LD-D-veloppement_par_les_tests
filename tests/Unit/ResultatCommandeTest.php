@@ -40,4 +40,13 @@ final class ResultatCommandeTest extends TestCase
         $this->assertFalse($result->succesExecution());
         $this->assertEquals('', $result->message());
     }
+
+    public function testSuccessMessageWithLongText(): void
+    {
+        $longMessage = 'This is a very long message about a successful order processing that contains lots of information';
+        $result = ResultatCommande::succes($longMessage);
+        
+        $this->assertTrue($result->succesExecution());
+        $this->assertEquals($longMessage, $result->message());
+    }
 }
