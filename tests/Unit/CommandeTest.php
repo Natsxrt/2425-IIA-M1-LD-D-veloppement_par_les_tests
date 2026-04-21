@@ -43,4 +43,11 @@ final class CommandeTest extends TestCase
         $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
         $this->assertFalse($commande->estVide());
     }
+
+    public function testItCannotBeDeliveredWhenEmpty(): void
+    {
+        $commande = new Commande();
+        $this->expectException(LogicException::class);
+        $commande->livrer();
+    }
 }
