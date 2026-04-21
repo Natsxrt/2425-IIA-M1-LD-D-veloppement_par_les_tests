@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit;
 
+use App\Caisse;
+use App\Commande;
+use App\Glace;
 use App\Stock;
 use InvalidArgumentException;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 
 final class StockTest extends TestCase
@@ -91,5 +95,16 @@ final class StockTest extends TestCase
         
         $stock->ajouter('vanille', 5000);
         $this->assertEquals(6000, $stock->quantiteDe('vanille'));
+    }
+
+    public function testPeutServierTrueWithSufficientStock(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 5);
+        
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        
+        $this->assertTrue($stock->peutServir($commande));
     }
 }
