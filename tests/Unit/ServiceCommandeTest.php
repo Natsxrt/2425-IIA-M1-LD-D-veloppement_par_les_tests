@@ -128,7 +128,6 @@ final class ServiceCommandeTest extends TestCase
         
         $stock = new Stock();
         $stock->ajouter('vanille', 10);
-        $stock->ajouter('chocolat', 0);
         $caisse = new Caisse();
         
         $result = $service->traiter($commande, $stock, $caisse);
