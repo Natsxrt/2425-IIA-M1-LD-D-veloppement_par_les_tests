@@ -132,4 +132,16 @@ final class StockTest extends TestCase
         
         $this->assertEquals(4, $stock->quantiteDe('vanille'));
     }
+
+    public function testRetirerPourThrowsExceptionIfInsufficientStock(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 1);
+        
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        
+        $this->expectException(LogicException::class);
+        $stock->retirerPour($commande);
+    }
 }
