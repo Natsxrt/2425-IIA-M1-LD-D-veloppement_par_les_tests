@@ -78,4 +78,11 @@ final class GlaceTest extends TestCase
         $glace = new Glace('cheap', 'cheap', 'cornet', 1);
         $this->assertEquals(1, $glace->prixVente());
     }
+
+    public function testLongIdentifierIsValid(): void
+    {
+        $longId = str_repeat('x', 100);
+        $glace = new Glace($longId, 'flavor', 'pot', 5);
+        $this->assertEquals($longId, $glace->identifiant());
+    }
 }
