@@ -107,4 +107,16 @@ final class StockTest extends TestCase
         
         $this->assertTrue($stock->peutServir($commande));
     }
+
+    public function testPeutServierFalseWithInsufficientStock(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 1);
+        
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'cornet', 4));
+        
+        $this->assertFalse($stock->peutServir($commande));
+    }
 }
