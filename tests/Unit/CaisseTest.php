@@ -75,4 +75,10 @@ final class CaisseTest extends TestCase
         $caisse = new Caisse(100);
         $caisse->encaisser(-25);
     }
+
+    public function testGetMontantReturnsCurrentBalance(): void
+    {
+        $caisse = new Caisse(50);
+        $this->assertEquals(50, $caisse->montant());
+    }
 }
