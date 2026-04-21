@@ -40,4 +40,11 @@ final class GlaceTest extends TestCase
 
         new Glace('vanille', '', 'pot', 4);
     }
+
+    public function testItRejectsZeroPrice(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        new Glace('vanille', 'vanille', 'pot', 0);
+    }
 }
