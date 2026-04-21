@@ -69,4 +69,13 @@ final class CommandeTest extends TestCase
         $this->expectException(LogicException::class);
         $commande->ajouterGlace(new Glace('chocolat', 'chocolat', 'pot', 5));
     }
+
+    public function testComputesTotalPriceWithMultipleGlaces(): void
+    {
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 10));
+        $commande->ajouterGlace(new Glace('fraise', 'fraise', 'cornet', 7));
+        $commande->ajouterGlace(new Glace('pistache', 'pistache', 'pot', 8));
+        $this->assertEquals(25, $commande->prixTotal());
+    }
 }
