@@ -49,4 +49,13 @@ final class ResultatCommandeTest extends TestCase
         $this->assertTrue($result->succesExecution());
         $this->assertEquals($longMessage, $result->message());
     }
+
+    public function testRefusMessageWithLongText(): void
+    {
+        $longMessage = 'This is a very long message about a refused order with detailed reasons for the refusal';
+        $result = ResultatCommande::refus($longMessage);
+        
+        $this->assertFalse($result->succesExecution());
+        $this->assertEquals($longMessage, $result->message());
+    }
 }
