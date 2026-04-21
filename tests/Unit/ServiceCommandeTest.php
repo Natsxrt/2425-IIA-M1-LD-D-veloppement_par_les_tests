@@ -150,4 +150,22 @@ final class ServiceCommandeTest extends TestCase
         $this->assertTrue($result->succesExecution());
         $this->assertEquals(0, $stock->quantiteDe('vanille'));
     }
+
+    public function testDuplicateFlavorCounrsAsMultipleItems(): void
+    {
+        $service = new ServiceCommande();
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'cornet', 4));
+        
+        $stock = new Stock();
+        $stock->ajouter('vanille', 2);
+        $caisse = new Caisse();
+        
+        $result = $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertTrue($result->succesExecution());
+        $this->assertEquals(0, $stock->quantiteDe('vanille'));
+        $this->assertEquals(8, $caisse->montant());
+    }
 }
