@@ -60,4 +60,10 @@ final class GlaceTest extends TestCase
         $glace = new Glace('fraise', 'fraise', 'cornet', 5);
         $this->assertSame('cornet', $glace->contenant());
     }
+
+    public function testPotContainerIsValid(): void
+    {
+        $glace = new Glace('pistache', 'pistache', 'pot', 6);
+        $this->assertSame('pot', $glace->contenant());
+    }
 }
