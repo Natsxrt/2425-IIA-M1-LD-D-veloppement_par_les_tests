@@ -29,4 +29,11 @@ final class StockTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $stock->ajouter('', 5);
     }
+
+    public function testRejectsZeroQuantity(): void
+    {
+        $stock = new Stock();
+        $this->expectException(InvalidArgumentException::class);
+        $stock->ajouter('vanille', 0);
+    }
 }
