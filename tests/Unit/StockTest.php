@@ -82,4 +82,14 @@ final class StockTest extends TestCase
         // This is a simplified test
         $this->assertTrue(true);
     }
+
+    public function testLargeQuantities(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 1000);
+        $this->assertEquals(1000, $stock->quantiteDe('vanille'));
+        
+        $stock->ajouter('vanille', 5000);
+        $this->assertEquals(6000, $stock->quantiteDe('vanille'));
+    }
 }
