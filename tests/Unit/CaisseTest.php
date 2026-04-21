@@ -30,4 +30,14 @@ final class CaisseTest extends TestCase
 
         self::assertSame(50, $caisse->montant());
     }
+
+    public function testItAccumulatesEncashedAmounts(): void
+    {
+        $caisse = new Caisse();
+        $caisse->encaisser(30);
+        $caisse->encaisser(20);
+        $caisse->encaisser(10);
+
+        self::assertSame(60, $caisse->montant());
+    }
 }
