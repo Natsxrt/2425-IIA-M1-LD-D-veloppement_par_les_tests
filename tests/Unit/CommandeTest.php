@@ -50,4 +50,13 @@ final class CommandeTest extends TestCase
         $this->expectException(LogicException::class);
         $commande->livrer();
     }
+
+    public function testItIsDeliveredAfterCalling(): void
+    {
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $this->assertFalse($commande->estLivree());
+        $commande->livrer();
+        $this->assertTrue($commande->estLivree());
+    }
 }
