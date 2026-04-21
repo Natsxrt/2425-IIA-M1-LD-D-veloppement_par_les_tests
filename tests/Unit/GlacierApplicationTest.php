@@ -34,4 +34,12 @@ final class GlacierApplicationTest extends TestCase
         $this->assertFalse($result['commandes'][0]['succes']);
         $this->assertStringContainsString('inconnue', $result['commandes'][0]['message']);
     }
+
+    public function testScenarioWithMultipleFlavours(): void
+    {
+        $app = GlacierApplication::demo();
+        $result = $app->traiterScenario([['vanille', 'chocolat']]);
+        
+        $this->assertCount(1, $result['commandes']);
+    }
 }
