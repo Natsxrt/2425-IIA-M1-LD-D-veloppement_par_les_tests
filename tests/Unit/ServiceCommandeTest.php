@@ -134,4 +134,20 @@ final class ServiceCommandeTest extends TestCase
         
         $this->assertFalse($result->succesExecution());
     }
+
+    public function testAcceptsOrderWithExactStock(): void
+    {
+        $service = new ServiceCommande();
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        
+        $stock = new Stock();
+        $stock->ajouter('vanille', 1);
+        $caisse = new Caisse();
+        
+        $result = $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertTrue($result->succesExecution());
+        $this->assertEquals(0, $stock->quantiteDe('vanille'));
+    }
 }
