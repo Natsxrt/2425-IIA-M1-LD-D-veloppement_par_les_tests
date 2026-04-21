@@ -66,4 +66,12 @@ final class GlacierApplicationTest extends TestCase
         
         $this->assertIsArray($result['stock']);
     }
+
+    public function testEmptyScenarioReturnsEmptyCommandes(): void
+    {
+        $app = GlacierApplication::demo();
+        $result = $app->traiterScenario([]);
+        
+        $this->assertEmpty($result['commandes']);
+    }
 }
