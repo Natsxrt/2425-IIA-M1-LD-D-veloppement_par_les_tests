@@ -32,4 +32,12 @@ final class ResultatCommandeTest extends TestCase
         $this->assertTrue($result->succesExecution());
         $this->assertEquals('', $result->message());
     }
+
+    public function testRefusMessageCanBeEmpty(): void
+    {
+        $result = ResultatCommande::refus('');
+        
+        $this->assertFalse($result->succesExecution());
+        $this->assertEquals('', $result->message());
+    }
 }
