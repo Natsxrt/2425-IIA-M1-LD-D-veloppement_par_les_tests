@@ -103,4 +103,11 @@ final class CaisseTest extends TestCase
         $caisse->encaisser(999999);
         $this->assertEquals(1999999, $caisse->montant());
     }
+
+    public function testEncashesMaximumValue(): void
+    {
+        $caisse = new Caisse(0);
+        $caisse->encaisser(2147483647);
+        $this->assertEquals(2147483647, $caisse->montant());
+    }
 }
