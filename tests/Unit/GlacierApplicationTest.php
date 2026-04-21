@@ -42,4 +42,12 @@ final class GlacierApplicationTest extends TestCase
         
         $this->assertCount(1, $result['commandes']);
     }
+
+    public function testScenarioWithMultipleOrders(): void
+    {
+        $app = GlacierApplication::demo();
+        $result = $app->traiterScenario([['vanille'], ['chocolat']]);
+        
+        $this->assertCount(2, $result['commandes']);
+    }
 }
