@@ -14,4 +14,15 @@ final class GlacierApplicationTest extends TestCase
         $app = GlacierApplication::demo();
         $this->assertInstanceOf(GlacierApplication::class, $app);
     }
+
+    public function testScenarioWithValidOrder(): void
+    {
+        $app = GlacierApplication::demo();
+        $result = $app->traiterScenario([['vanille']]);
+        
+        $this->assertIsArray($result);
+        $this->assertArrayHasKey('commandes', $result);
+        $this->assertArrayHasKey('caisse', $result);
+        $this->assertArrayHasKey('stock', $result);
+    }
 }
