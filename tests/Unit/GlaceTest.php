@@ -66,4 +66,10 @@ final class GlaceTest extends TestCase
         $glace = new Glace('pistache', 'pistache', 'pot', 6);
         $this->assertSame('pot', $glace->contenant());
     }
+
+    public function testLargestPriceIsHandledCorrectly(): void
+    {
+        $glace = new Glace('luxe', 'luxe', 'pot', 1000);
+        $this->assertEquals(1000, $glace->prixVente());
+    }
 }
