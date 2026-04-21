@@ -74,4 +74,19 @@ final class GlacierApplicationTest extends TestCase
         
         $this->assertEmpty($result['commandes']);
     }
+
+    public function testMultipleOrdersWithMixedResults(): void
+    {
+        $app = GlacierApplication::demo();
+        $result = $app->traiterScenario([
+            ['vanille'],
+            ['unknown'],
+            ['chocolat']
+        ]);
+        
+        $this->assertCount(3, $result['commandes']);
+        $this->assertTrue($result['commandes'][0]['succes']);
+        $this->assertFalse($result['commandes'][1]['succes']);
+        $this->assertTrue($result['commandes'][2]['succes']);
+    }
 }
