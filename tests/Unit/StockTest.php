@@ -143,4 +143,20 @@ final class StockTest extends TestCase
         $this->expectException(LogicException::class);
         $stock->retirerPour($commande);
     }
+
+    public function testRetirerPourWithMultipleFlavors(): void
+    {
+        $stock = new Stock();
+        $stock->ajouter('vanille', 5);
+        $stock->ajouter('chocolat', 3);
+        
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 4));
+        $commande->ajouterGlace(new Glace('chocolat', 'chocolat', 'cornet', 5));
+        
+        $stock->retirerPour($commande);
+        
+        $this->assertEquals(4, $stock->quantiteDe('vanille'));
+        $this->assertEquals(2, $stock->quantiteDe('chocolat'));
+    }
 }
