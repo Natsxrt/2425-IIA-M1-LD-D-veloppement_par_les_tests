@@ -57,4 +57,13 @@ final class CaisseTest extends TestCase
 
         new Caisse(-10);
     }
+
+    public function testItRejectsZeroEncashedAmount(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Le montant encaisse doit etre positif.');
+
+        $caisse = new Caisse(100);
+        $caisse->encaisser(0);
+    }
 }
