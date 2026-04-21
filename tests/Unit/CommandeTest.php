@@ -30,4 +30,10 @@ final class CommandeTest extends TestCase
 
         $commande->livrer();
     }
+
+    public function testItStartsEmpty(): void
+    {
+        $commande = new Commande();
+        $this->assertTrue($commande->estVide());
+    }
 }
