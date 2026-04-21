@@ -50,4 +50,12 @@ final class GlacierApplicationTest extends TestCase
         
         $this->assertCount(2, $result['commandes']);
     }
+
+    public function testCaisseUpdatesAfterSuccessfulOrder(): void
+    {
+        $app = GlacierApplication::demo();
+        $result = $app->traiterScenario([['vanille']]);
+        
+        $this->assertGreaterThan(0, $result['caisse']);
+    }
 }
