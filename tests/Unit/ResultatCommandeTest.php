@@ -58,4 +58,15 @@ final class ResultatCommandeTest extends TestCase
         $this->assertFalse($result->succesExecution());
         $this->assertEquals($longMessage, $result->message());
     }
+
+    public function testMultipleInstancesAreIndependent(): void
+    {
+        $result1 = ResultatCommande::succes('Success 1');
+        $result2 = ResultatCommande::refus('Refusal 2');
+        
+        $this->assertTrue($result1->succesExecution());
+        $this->assertFalse($result2->succesExecution());
+        $this->assertEquals('Success 1', $result1->message());
+        $this->assertEquals('Refusal 2', $result2->message());
+    }
 }
