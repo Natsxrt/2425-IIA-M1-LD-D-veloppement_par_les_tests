@@ -61,4 +61,34 @@ final class OrderProcessingTest extends TestCase
         $this->assertEquals(18, $caisse->montant());
         $this->assertEquals(3, $stock->quantiteDe('vanille'));
     }
+
+    public function testInsufficientStockRefusalPath(): void
+    {
+        $service = new ServiceCommande();
+        $stock = new Stock();
+        $caisse = new Caisse(100);
+        
+        $stock->ajouter('vanille', 2);
+        $stock->ajouter('chocolat', 1);
+        
+        $commande = new Commande();
+        // Demander 3 glaces vanille (stock en a 2)
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 5));
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 5));
+        $commande->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 5));
+        // Demander 2 glaces chocolat (stock en a 1)
+        $commande->ajouterGlace(new Glace('chocolat', 'chocolat', 'cornet', 6));
+        $commande->ajouterGlace(new Glace('chocolat', 'chocolat', 'cornet', 6));
+        
+        $result = $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertFalse($result->succesExecution());
+        // Stock ne doit pas changer en cas d'échec
+        $this->assertEquals(2, $stock->quantiteDe('vanille'));
+        $this->assertEquals(1, $stock->quantiteDe('chocolat'));
+        // Caisse ne doit pas changer en cas d'échec
+        $this->assertEquals(100, $caisse->montant());
+        // Commande ne doit pas être livrée
+        $this->assertFalse($commande->estLivree());
+    }
 }
