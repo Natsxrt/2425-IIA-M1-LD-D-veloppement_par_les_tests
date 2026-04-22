@@ -112,4 +112,26 @@ final class OrderProcessingTest extends TestCase
         // Commande ne peut pas être livrée si elle est vide
         $this->assertFalse($commande->estLivree());
     }
+
+    public function testUnknownFlavorRefusal(): void
+    {
+        $service = new ServiceCommande();
+        $stock = new Stock();
+        $caisse = new Caisse(50);
+        
+        $stock->ajouter('vanille', 10);
+        // Note: 'fraise' n'est pas en stock
+        
+        $commande = new Commande();
+        $commande->ajouterGlace(new Glace('fraise', 'fraise', 'pot', 7));
+        
+        $result = $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertFalse($result->succesExecution());
+        // Stock et caisse inchangés
+        $this->assertEquals(10, $stock->quantiteDe('vanille'));
+        $this->assertEquals(0, $stock->quantiteDe('fraise'));
+        $this->assertEquals(50, $caisse->montant());
+        $this->assertFalse($commande->estLivree());
+    }
 }
