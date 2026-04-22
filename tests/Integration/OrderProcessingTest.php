@@ -34,4 +34,31 @@ final class OrderProcessingTest extends TestCase
         $this->assertEquals(7, $stock->quantiteDe('chocolat'));
         $this->assertTrue($commande->estLivree());
     }
+
+    public function testMultipleOrdersSequence(): void
+    {
+        $service = new ServiceCommande();
+        $stock = new Stock();
+        $caisse = new Caisse(0);
+        
+        $stock->ajouter('vanille', 5);
+        
+        // Première commande
+        $commande1 = new Commande();
+        $commande1->ajouterGlace(new Glace('vanille', 'vanille', 'pot', 10));
+        
+        $result1 = $service->traiter($commande1, $stock, $caisse);
+        $this->assertTrue($result1->succesExecution());
+        $this->assertEquals(10, $caisse->montant());
+        $this->assertEquals(4, $stock->quantiteDe('vanille'));
+        
+        // Deuxième commande
+        $commande2 = new Commande();
+        $commande2->ajouterGlace(new Glace('vanille', 'vanille', 'cornet', 8));
+        
+        $result2 = $service->traiter($commande2, $stock, $caisse);
+        $this->assertTrue($result2->succesExecution());
+        $this->assertEquals(18, $caisse->montant());
+        $this->assertEquals(3, $stock->quantiteDe('vanille'));
+    }
 }
