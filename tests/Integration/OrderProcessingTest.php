@@ -91,4 +91,25 @@ final class OrderProcessingTest extends TestCase
         // Commande ne doit pas être livrée
         $this->assertFalse($commande->estLivree());
     }
+
+    public function testEmptyOrderRefusal(): void
+    {
+        $service = new ServiceCommande();
+        $stock = new Stock();
+        $caisse = new Caisse(50);
+        
+        $stock->ajouter('vanille', 10);
+        
+        $commande = new Commande();
+        // Pas d'ajout de glace = commande vide
+        
+        $result = $service->traiter($commande, $stock, $caisse);
+        
+        $this->assertFalse($result->succesExecution());
+        // Stock et caisse inchangés
+        $this->assertEquals(10, $stock->quantiteDe('vanille'));
+        $this->assertEquals(50, $caisse->montant());
+        // Commande ne peut pas être livrée si elle est vide
+        $this->assertFalse($commande->estLivree());
+    }
 }
